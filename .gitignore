@@ -1,3 +1,4 @@
 *~
 .DS_Store
 /webapp/java/target/
+/webapp/javaee7-jaxrs-thymeleaf/target/
