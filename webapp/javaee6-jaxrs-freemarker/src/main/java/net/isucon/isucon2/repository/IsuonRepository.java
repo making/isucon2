@@ -2,8 +2,7 @@ package net.isucon.isucon2.repository;
 
 import java.math.BigInteger;
 import java.util.List;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -23,8 +22,7 @@ import org.hibernate.ejb.QueryImpl;
  *
  * @author matsumana
  */
-@Stateless
-@LocalBean
+@RequestScoped
 public class IsuonRepository {
 
     @PersistenceContext
