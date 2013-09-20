@@ -18,7 +18,7 @@ import net.isucon.isucon2.domain.Variation;
  * @author matsumana
  */
 @RequestScoped
-public class IsuonRepository {
+public class IsuconRepository {
 
     @PersistenceContext
     EntityManager em;

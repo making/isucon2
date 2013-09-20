@@ -23,7 +23,7 @@ import org.hibernate.ejb.QueryImpl;
  * @author matsumana
  */
 @RequestScoped
-public class IsuonRepository {
+public class IsuconRepository {
 
     @PersistenceContext
     EntityManager em;
