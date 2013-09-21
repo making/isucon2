@@ -38,6 +38,7 @@ public class JaxrsActivator extends Application {
         resources.add(net.isucon.isucon2.resource.ArtistResource.class);
         resources.add(net.isucon.isucon2.resource.BuyResource.class);
         resources.add(net.isucon.isucon2.resource.ListResource.class);
+        resources.add(net.isucon.isucon2.resource.SeatResource.class);
         resources.add(net.isucon.isucon2.resource.TicketResource.class);
     }
 }

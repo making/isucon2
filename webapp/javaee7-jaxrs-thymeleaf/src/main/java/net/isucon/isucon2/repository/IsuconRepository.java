@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import net.isucon.isucon2.domain.Artist;
@@ -142,6 +143,25 @@ public class IsuconRepository {
     public List<OrderRequest> findCsvData() {
         Query q = em.createNamedQuery("OrderRequest.findCsvData");
         return q.getResultList();
+    }
+
+    /**
+     * シート情報取得
+     */
+    public OrderRequest findOrderRequestBySeatId(int variationId, String seatId) {
+        Query q = em.createNamedQuery("OrderRequest.findBySeatId");
+        q.setParameter("variationId", variationId);
+        q.setParameter("seatId", seatId);
+
+        List<OrderRequest> result = q.getResultList();
+        if (result.isEmpty()) {
+            // NoResultException対策
+            return new OrderRequest();
+        } else if (result.size() == 1) {
+            return result.get(0);
+        } else {
+            throw new NonUniqueResultException();
+        }
     }
 
     /**

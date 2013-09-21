@@ -1,5 +1,7 @@
 package net.isucon.isucon2.domain;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -19,6 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import net.isucon.isucon2.response.BuyResponse;
+import net.isucon.isucon2.response.SeatResponse;
 
 /**
  * 購入依頼ドメイン
@@ -29,7 +32,8 @@ import net.isucon.isucon2.response.BuyResponse;
 @RequestScoped
 @Table(name = "order_request")
 @NamedQueries({
-    @NamedQuery(name = "OrderRequest.findCsvData", query = "SELECT NEW net.isucon.isucon2.domain.OrderRequest(o.id, o.memberId, s.seatId, s.variationId, s.updatedAt) FROM OrderRequest o, Stock s WHERE o.id = s.orderId ORDER BY o.id ASC")})
+    @NamedQuery(name = "OrderRequest.findCsvData", query = "SELECT NEW net.isucon.isucon2.domain.OrderRequest(o.id, o.memberId, s.seatId, s.variationId, s.updatedAt) FROM OrderRequest o, Stock s WHERE o.id = s.orderId ORDER BY o.id ASC"),
+    @NamedQuery(name = "OrderRequest.findBySeatId", query = "SELECT NEW net.isucon.isucon2.domain.OrderRequest(o.id, o.memberId, s.seatId, s.variationId, s.updatedAt) FROM OrderRequest o, Stock s WHERE o.id = s.orderId AND s.variationId = :variationId AND s.seatId = :seatId")})
 @Setter
 @Getter
 @NoArgsConstructor
@@ -86,5 +90,26 @@ public class OrderRequest extends BaseDomain {
 
             return response;
         }
+    }
+
+    /**
+     * シート詳細情報取得
+     */
+    public SeatResponse getSeatDetail(int variationId, String seatId) {
+        List<Stock> infos = repository.findLatest();
+
+        OrderRequest orderRequest = repository.findOrderRequestBySeatId(variationId, seatId);
+        SeatResponse response = new SeatResponse();
+        response.setTemplateName("seat");
+        response.setInfos(infos);
+        response.setMemberId(orderRequest.getMemberId());
+        response.setSeatId(orderRequest.getSeatId());
+
+        if (orderRequest.getUpdatedAt() != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            response.setUpdatedAt(sdf.format(orderRequest.getUpdatedAt()));
+        }
+
+        return response;
     }
 }

@@ -19,6 +19,10 @@
         <from>^/buy$</from>
         <to>/rest/buy</to>
     </rule>
+    <rule>
+        <from>^/seat/(.+)$</from>
+        <to>/rest/seat/$1</to>
+    </rule>
 
     <!-- admin -->
     <rule>

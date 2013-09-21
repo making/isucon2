@@ -32,6 +32,7 @@
         <div id="content" th:if="${templateName eq 'list'}"    th:include="list.html    :: content" />
         <div id="content" th:if="${templateName eq 'soldout'}" th:include="soldout.html :: content" />
         <div id="content" th:if="${templateName eq 'ticket'}"  th:include="ticket.html  :: content" />
+        <div id="content" th:if="${templateName eq 'seat'}"    th:include="seat.html    :: content" />
 
     </body>
 </html>
