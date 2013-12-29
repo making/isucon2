@@ -2,4 +2,5 @@
 .DS_Store
 /webapp/java/target/
 /webapp/javaee7-jaxrs-thymeleaf/target/
+/webapp/javaee7-jaxrs-thymeleaf-wildfly/target/
 /webapp/javaee6-jaxrs-freemarker/target/
