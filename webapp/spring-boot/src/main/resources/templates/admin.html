@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="base">
+<head>
+</head>
+<body>
+<div id="content" layout:fragment="content">
+    <ul>
+        <li>
+            <a th:href="/admin/order.csv">注文CSV</a>
+        </li>
+        <li>
+            <form th:action="/admin" method="POST">
+                <input type="submit" value="データ初期化"/>
+            </form>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

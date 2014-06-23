@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="base">
+<head>
+</head>
+<body>
+<div id="content" layout:fragment="content">
+    <h1>TOP</h1>
+    <ul>
+        <li th:each="artist : ${artists}" class="ticket">
+            <a th:href="'/artist/' + ${artist.id}"><span class="artist_name" th:text="${artist.name}">bbb</span></a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

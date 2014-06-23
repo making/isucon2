@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="base">
+<head>
+</head>
+<body>
+<div id="content" layout:fragment="content">
+    <h2>予約完了</h2>
+    <span class="result" data-result="success">&quot;<span class="seat"
+                                                           th:text="${seatId}">aaa</span>&quot;の席を購入しました。</span>
+</div>
+</body>
+</html>
