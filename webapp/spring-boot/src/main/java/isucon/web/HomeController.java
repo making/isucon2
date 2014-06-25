@@ -1,21 +1,21 @@
 package isucon.web;
 
-import isucon.model.Artist;
-import isucon.model.LatestInfo;
+import isucon.repository.ArtistRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Arrays;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping
 public class HomeController {
+    @Autowired
+    ArtistRepository artistRepository;
 
-    @RequestMapping
+    @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
     String home(Model model) {
-        model.addAttribute("infos", Arrays.asList(new LatestInfo("hogehoge", "b", "c", "yamada"), new LatestInfo("foo", "b", "c", "bar")));
-        model.addAttribute("artists", Arrays.asList(new Artist(1, "aaa"),new Artist(2, "bbb")));
+        model.addAttribute("artists", artistRepository.findAll());
         return "list";
     }
 }

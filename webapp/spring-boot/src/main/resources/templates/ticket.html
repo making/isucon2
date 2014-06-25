@@ -3,6 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorator="base">
 <head>
+    <meta charset="utf-8"/>
 </head>
 <body>
 <div id="content" layout:fragment="content">
@@ -25,11 +26,11 @@
 
     <div th:each="variation : ${variations}">
         <h4 th:text="${variation.name}">aaa</h4>
-        <table class="seats" data-variationid="${variation.id}">
-            <tr th:each="i: ${#numbers.sequence(0, #lists.size(variation.stocks) - 1, 64)}">
-                <td th:each="j: ${#numbers.sequence(i, i + 63)}"
-                    th:id="${#strings.substring(variation.stocks[j], 0, 5)}"
-                    th:class="${#strings.substring(variation.stocks[j], 6)}">
+        <table class="seats" th:attr="data-variationid=${variation.id}">
+            <tr th:each="i: ${#numbers.sequence(0, 63)}">
+                <td th:each="j: ${#numbers.sequence(0, 63)}"
+                    th:with="stockkey=${#numbers.formatInteger(i, 2) + '-' + #numbers.formatInteger(j, 2)}"
+                    th:class="${variation.stocks.get(stockkey) == true ? 'available': 'unavailable'}">
                 </td>
             </tr>
         </table>
