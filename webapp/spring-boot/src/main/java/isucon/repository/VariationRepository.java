@@ -24,7 +24,7 @@ public class VariationRepository {
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("ticketId", ticketId);
         return jdbcTemplate.query(
-                "SELECT id, name FROM isucon2.variation WHERE ticket_id = :ticketId ORDER BY id",
+                "SELECT id, name FROM variation WHERE ticket_id = :ticketId ORDER BY id",
                 param,
                 rowMapper);
     }
@@ -33,8 +33,8 @@ public class VariationRepository {
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("ticketId", ticketId);
         Long count = jdbcTemplate.queryForObject(
-                "SELECT COUNT(*) FROM isucon2.variation " +
-                        "INNER JOIN isucon2.stock ON stock.variation_id = variation.id " +
+                "SELECT COUNT(*) FROM variation " +
+                        "INNER JOIN stock ON stock.variation_id = variation.id " +
                         "WHERE variation.ticket_id = :ticketId AND stock.order_id IS NULL",
                 param,
                 Long.class);

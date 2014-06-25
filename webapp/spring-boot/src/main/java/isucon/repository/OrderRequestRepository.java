@@ -27,7 +27,7 @@ public class OrderRequestRepository {
 
     public OrderRequest save(OrderRequest orderRequest) {
         SimpleJdbcInsert insert = new SimpleJdbcInsert((JdbcTemplate) jdbcTemplate.getJdbcOperations())
-                .withSchemaName("isucon2")
+                //.withSchemaName("isucon2")
                 .withTableName("order_request")
                 .usingGeneratedKeyColumns("id");
         SqlParameterSource param = new MapSqlParameterSource()
@@ -40,8 +40,8 @@ public class OrderRequestRepository {
     public OrderRequestReports findAllReport() {
         return new OrderRequestReports(jdbcTemplate.query("SELECT order_request.id AS id, order_request.member_id AS memberId, " +
                 "stock.seat_id AS seatId, stock.variation_id AS variationId, stock.updated_at AS updatedAt " +
-                "FROM isucon2.order_request " +
-                "JOIN isucon2.stock ON order_request.id = stock.order_id " +
+                "FROM order_request " +
+                "JOIN stock ON order_request.id = stock.order_id " +
                 "ORDER BY order_request.id ASC", reportRowMapper));
     }
 

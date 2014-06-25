@@ -22,7 +22,7 @@ public class ArtistRepository {
 
     public List<Artist> findAll() {
         return jdbcTemplate.query(
-                "SELECT id, name FROM isucon2.artist ORDER BY id",
+                "SELECT id, name FROM artist ORDER BY id",
                 rowMapper);
     }
 
@@ -30,7 +30,7 @@ public class ArtistRepository {
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("id", id);
         return jdbcTemplate.queryForObject(
-                "SELECT id, name FROM isucon2.artist WHERE id = :id LIMIT 1",
+                "SELECT id, name FROM artist WHERE id = :id LIMIT 1",
                 param,
                 rowMapper);
     }

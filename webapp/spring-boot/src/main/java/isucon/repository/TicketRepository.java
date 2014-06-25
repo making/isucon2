@@ -29,7 +29,7 @@ public class TicketRepository {
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("artistId", artistId);
         return jdbcTemplate.query(
-                "SELECT id, name FROM isucon2.ticket WHERE artist_id = :artistId ORDER BY id",
+                "SELECT id, name FROM ticket WHERE artist_id = :artistId ORDER BY id",
                 param,
                 rowMapper);
     }
@@ -39,8 +39,8 @@ public class TicketRepository {
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("ticketId", ticketId);
         return jdbcTemplate.queryForObject(
-                "SELECT t.*, a.name AS artistName FROM isucon2.ticket t" +
-                        " INNER JOIN isucon2.artist a ON t.artist_id = a.id " +
+                "SELECT t.*, a.name AS artistName FROM ticket t" +
+                        " INNER JOIN artist a ON t.artist_id = a.id " +
                         "WHERE t.id = :ticketId LIMIT 1",
                 param,
                 rowMapper);
@@ -48,10 +48,10 @@ public class TicketRepository {
 
     public List<LatestInfo> findLastestInfo() {
         return jdbcTemplate.query("SELECT stock.seat_id as seatId, variation.name AS variationName, ticket.name AS ticketName, artist.name AS artistName " +
-                        "FROM isucon2.stock " +
-                        "JOIN isucon2.variation ON stock.variation_id = variation.id " +
-                        "JOIN isucon2.ticket ON variation.ticket_id = ticket.id " +
-                        "JOIN isucon2.artist ON ticket.artist_id = artist.id " +
+                        "FROM stock " +
+                        "JOIN variation ON stock.variation_id = variation.id " +
+                        "JOIN ticket ON variation.ticket_id = ticket.id " +
+                        "JOIN artist ON ticket.artist_id = artist.id " +
                         "WHERE order_id IS NOT NULL " +
                         "ORDER BY order_id DESC LIMIT 10",
                 latestInfoRowMapper);

@@ -24,7 +24,7 @@ public class StockRepository {
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("variationId", variationId);
         return jdbcTemplate.query(
-                "SELECT seat_id as seatId, order_id as orderId FROM isucon2.stock WHERE variation_id = :variationId",
+                "SELECT seat_id as seatId, order_id as orderId FROM stock WHERE variation_id = :variationId",
                 param,
                 rowMapper);
     }
@@ -33,7 +33,7 @@ public class StockRepository {
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("orderId", orderId);
         return jdbcTemplate.queryForObject(
-                "SELECT seat_id as seatId FROM isucon2.stock WHERE order_id = :orderId LIMIT 1",
+                "SELECT seat_id as seatId FROM stock WHERE order_id = :orderId LIMIT 1",
                 param,
                 rowMapper);
     }
@@ -42,7 +42,7 @@ public class StockRepository {
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("variationId", variationId);
         Long count = jdbcTemplate.queryForObject(
-                "SELECT COUNT(*) FROM isucon2.stock WHERE variation_id = :variationId AND order_id IS NULL",
+                "SELECT COUNT(*) FROM stock WHERE variation_id = :variationId AND order_id IS NULL",
                 param,
                 Long.class);
         return count == null ? 0 : count;
@@ -53,7 +53,7 @@ public class StockRepository {
                 .addValue("orderId", orderId)
                 .addValue("variationId", variationId);
         return jdbcTemplate.update(
-                "UPDATE isucon2.stock SET order_id = :orderId WHERE variation_id = :variationId AND order_id IS NULL LIMIT 1",
+                "UPDATE stock SET order_id = :orderId WHERE variation_id = :variationId AND order_id IS NULL ORDER BY RAND() LIMIT 1",
                 param);
     }
 
